@@ -554,7 +554,6 @@
 //   );
 // }
 
-
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 
@@ -897,7 +896,10 @@ const styles = `
 `;
 
 function getTime() {
-  return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }
 
 export default function App() {
@@ -923,8 +925,13 @@ export default function App() {
     if (textareaRef.current) textareaRef.current.style.height = "auto";
 
     try {
-      const res = await axios.post("http://localhost:5000/chat", { message: trimmed });
-      setChat((prev) => [...prev, { role: "ai", text: res.data.reply, time: getTime() }]);
+      const res = await axios.post("http://localhost:5000/chat", {
+        message: trimmed,
+      });
+      setChat((prev) => [
+        ...prev,
+        { role: "ai", text: res.data.reply, time: getTime() },
+      ]);
     } catch (err) {
       const errMsg = err.response?.data?.error || err.message;
       setChat((prev) => [
@@ -953,7 +960,6 @@ export default function App() {
     <>
       <style>{styles}</style>
       <div className="app">
-
         {/* Header */}
         <div className="header">
           <div className="header-icon">✦</div>
@@ -979,7 +985,9 @@ export default function App() {
                 {msg.role === "ai" ? "G" : "U"}
               </div>
               <div>
-                <div className={`bubble ${msg.role}${msg.error ? " error" : ""}`}>
+                <div
+                  className={`bubble ${msg.role}${msg.error ? " error" : ""}`}
+                >
                   {msg.text}
                 </div>
                 <div className="timestamp">{msg.time}</div>
@@ -1021,7 +1029,16 @@ export default function App() {
               onClick={sendMessage}
               disabled={!message.trim() || thinking}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="22" y1="2" x2="11" y2="13" />
                 <polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
@@ -1029,7 +1046,6 @@ export default function App() {
           </div>
           <div className="hint">Enter to send · Shift+Enter for new line</div>
         </div>
-
       </div>
     </>
   );
