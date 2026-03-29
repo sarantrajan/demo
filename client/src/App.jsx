@@ -12,7 +12,7 @@ const styles = `
     height: 100vh;
     overflow: hidden;
   }
-
+    
   .app {
     display: flex;
     flex-direction: column;
